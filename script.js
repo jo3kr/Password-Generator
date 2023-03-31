@@ -1,8 +1,9 @@
 // Assignment code here
 // vars for all possible characters
-var lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-var uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+var lowercase = "abcdefghijklmnopqrstuvwxyz".split("");
+var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+var numeric = "0123456789".split("");
+var special = ",.';:?!@#$%^&*()-_=+<>/[]{}|".split("");
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
@@ -13,27 +14,53 @@ function writePassword() {
     alert("Please enter a valid number between 8 and 128.");
     return "";
   }
-  var passwordText = document.querySelector("#password");
-  // prompts for chaarcter types
-  var lowercase = confirm("Would you like to include lowercase letters?");
-  var uppercase = confirm("Would you like to include uppercase letters?");
+  // prompts for character types
+  var includeLowercase = confirm(
+    "Would you like to include lowercase letters in your password?"
+  );
+  var includeUppercase = confirm(
+    "Would you like to include uppercase letters in your password?"
+  );
+  var includeNumeric = confirm(
+    "Would you like to include numeric characters in your password?"
+  );
+  var includeSpecial = confirm(
+    "Would you like to include special characters in your password?"
+  );
 
-  // building an array of all poosible characters
-  var possibleChars = [];
-  if (lowercase) {
-    possibleChars = possibleChars.concat(lowercaseChars);
+  if (
+    !includeLowercase &&
+    !includeUppercase &&
+    !includeNumeric &&
+    !includeSpecial
+  ) {
+    alert(
+      "Please select at least one character type to include in your password."
+    );
+    return;
   }
-  if (uppercase) {
-    possibleChars = possibleChars.concat(uppercaseChars);
+
+  var characters = "";
+  if (includeLowercase) {
+    characters += lowercase;
   }
-  
-  passwordText.value = password;
-  // Generate the password
+  if (includeUppercase) {
+    characters += uppercase;
+  }
+  if (includeNumeric) {
+    characters += numeric;
+  }
+  if (includeSpecial) {
+    characters += special;
+  }
+
   var password = "";
   for (var i = 0; i < length; i++) {
-    password += possibleChars[Math.floor(Math.random() * possibleChars.length)];
+    password += characters.charAt(Math.floor(Math.random() * characters.length));
   }
-  return password;
+
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
 }
 
 // Add event listener to generate button
