@@ -18,6 +18,7 @@ function writePassword() {
     alert("Please enter a valid number between 8 and 128.");
     return "";
   }
+
   // prompts for character types
   var includeLowercase = confirm(
     "Would you like to include lowercase letters in your password?"
@@ -32,6 +33,7 @@ function writePassword() {
     "Would you like to include special characters in your password?"
   );
 
+  // checks to make sure that atleast one character type was selected
   if (
     !includeLowercase &&
     !includeUppercase &&
@@ -44,6 +46,7 @@ function writePassword() {
     return;
   }
 
+  // constructs string based on chonses parameters for the password
   var characters = "";
   if (includeLowercase) {
     characters = characters.concat(lowercase);
@@ -58,6 +61,7 @@ function writePassword() {
     characters = characters.concat(special);
   }
 
+  // generates password and makes sure it's randomized
   var password = "";
   for (var i = 0; i < length; i++) {
     password += characters.charAt(
